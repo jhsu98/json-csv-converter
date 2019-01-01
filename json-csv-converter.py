@@ -43,7 +43,12 @@ else:
             while os.path.isfile(converted_file_basename + " (" + str(counter) + ")" + converted_file_extension):
                 counter += 1
             converted_file_basename = converted_file_basename + " (" + str(counter) + ")"
-
-        with open(converted_file_basename + converted_file_extension, 'w') as outfile:
-            json.dump(converted, outfile)        
+        
+        try:
+            with open(converted_file_basename + converted_file_extension, 'w') as outfile:
+                json.dump(converted, outfile)
+        except:
+            print("Error creating file ... exiting")
+        else:
+            print("File created:",converted_file_basename + converted_file_extension)
 
