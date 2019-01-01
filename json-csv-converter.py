@@ -1,3 +1,4 @@
+import os.path
 import csv
 import json
 
@@ -34,3 +35,15 @@ else:
             for j in range(0,len(data[i])):
                 obj[keys[j]] = data[i][j]
             converted.append(obj)
+        
+        converted_file_basename = os.path.basename(filename).split(".")[0]
+        converted_file_extension = ".json"
+        if(os.path.isfile(converted_file_basename + converted_file_extension)):
+            counter = 1
+            while os.path.isfile(converted_file_basename + " (" + str(counter) + ")" + converted_file_extension):
+                counter += 1
+            converted_file_basename = converted_file_basename + " (" + str(counter) + ")"
+
+        with open(converted_file_basename + converted_file_extension, 'w') as outfile:
+            json.dump(converted, outfile)        
+
