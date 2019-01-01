@@ -1,7 +1,7 @@
 import os.path
 import csv
 import json
-from collections import OrderedDict
+import collections
 
 print("Welcome to the JSON-CSV Converter.")
 print("This script will convert a JSON file to CSV or a CSV file to JSON")
@@ -35,9 +35,12 @@ else:
         converted = []
 
         for i in range(1, len(data)):
-            obj = {}
-            for j in range(0,len(data[i])):
-                obj[keys[j]] = data[i][j]
+            obj = collections.OrderedDict()
+            for j in range(0,len(keys)):
+                if len(data[i][j]) > 0:
+                    obj[keys[j]] = data[i][j]
+                else:
+                    obj[keys[j]] = None
             converted.append(obj)
         
     # CONVERT JSON TO CSV
@@ -63,6 +66,7 @@ else:
                     row.append('')
             converted.append(row)
 
+    # CREATE OUTPUT FILE
     if(os.path.isfile(converted_file_basename + converted_file_extension)):
         counter = 1
         while os.path.isfile(converted_file_basename + " (" + str(counter) + ")" + converted_file_extension):
