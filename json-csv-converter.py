@@ -23,19 +23,19 @@ except:
     # error loading file
     print("Error loading file ... exiting")
     exit()
+else:
+    # CONVERT CSV TO JSON
+    if extension.lower() == "csv":
+        keys = []
+        for i in range(0,len(data[0])):
+            keys.append(data[0][i])
 
-# CONVERT CSV TO JSON
-if extension.lower() == "csv":
-    keys = []
-    for i in range(0,len(data[0])):
-        keys.append(data[0][i])
+        converted = []
 
-    converted = []
-
-    for i in range(1, len(data)):
-        obj = {}
-        for j in range(0,len(data[i])):
-            obj[keys[j]] = data[i][j]
-        converted.append(obj)
-    
-    print(converted)
+        for i in range(1, len(data)):
+            obj = {}
+            for j in range(0,len(data[i])):
+                obj[keys[j]] = data[i][j]
+            converted.append(obj)
+        
+        print(converted)
