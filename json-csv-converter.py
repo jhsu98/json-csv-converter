@@ -1,7 +1,7 @@
-import os.path
+import os
 import csv
 import json
-import collections
+from collections import OrderedDict
 
 print("Welcome to the JSON-CSV Converter.")
 print("This script will convert a JSON file to CSV or a CSV file to JSON")
@@ -10,7 +10,7 @@ print("This script will convert a JSON file to CSV or a CSV file to JSON")
 try:
     print("Which file do you want to convert?")
     filename = input("Filename: ")
-    extension = filename.split(".")[1]
+    extension = filename.split(".")[-1]
     f = open(filename)
 
     if extension.lower() == "csv":
@@ -21,9 +21,12 @@ try:
         # load json file
         data = json.load(f,object_pairs_hook=OrderedDict)
         print("JSON file loaded")
-except:
+    else:
+        print("unsupported file type ... exiting")
+        exit()
+except Exception as e:
     # error loading file
-    print("Error loading file ... exiting")
+    print("Error loading file ... exiting:",e)
     exit()
 else:
     converted_file_basename = os.path.basename(filename).split(".")[0]
@@ -35,7 +38,7 @@ else:
         converted = []
 
         for i in range(1, len(data)):
-            obj = collections.OrderedDict()
+            obj = OrderedDict()
             for j in range(0,len(keys)):
                 if len(data[i][j]) > 0:
                     obj[keys[j]] = data[i][j]
