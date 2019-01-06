@@ -10,14 +10,14 @@ print("This script will convert a JSON file to CSV or a CSV file to JSON")
 try:
     print("Which file do you want to convert?")
     filename = input("Filename: ")
-    extension = filename.split(".")[-1]
+    extension = filename.split(".")[-1].lower()
     f = open(filename)
 
-    if extension.lower() == "csv":
+    if extension == "csv":
         # load csv file
         data = list(csv.reader(f))
         print("CSV file loaded")
-    elif extension.lower() == "json":
+    elif extension == "json":
         # load json file
         data = json.load(f,object_pairs_hook=OrderedDict)
         print("JSON file loaded")
@@ -30,10 +30,10 @@ except Exception as e:
     exit()
 else:
     converted_file_basename = os.path.basename(filename).split(".")[0]
-    converted_file_extension = ".json" if extension.lower() == "csv" else ".csv"
+    converted_file_extension = ".json" if extension == "csv" else ".csv"
 
     # CONVERT CSV TO JSON
-    if extension.lower() == "csv":
+    if extension == "csv":
         keys = data[0]
         converted = []
 
@@ -47,7 +47,7 @@ else:
             converted.append(obj)
         
     # CONVERT JSON TO CSV
-    if extension.lower() == "json":
+    if extension == "json":
 
         # get all keys in json objects
         keys = []
