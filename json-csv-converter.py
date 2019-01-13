@@ -11,6 +11,7 @@ try:
     print("Which file do you want to convert?")
     filename = input("Filename: ")
     extension = filename.split(".")[-1].lower()
+    
     f = open(filename)
 
     if extension == "csv":
@@ -29,9 +30,6 @@ except Exception as e:
     print("Error loading file ... exiting:",e)
     exit()
 else:
-    converted_file_basename = os.path.basename(filename).split(".")[0]
-    converted_file_extension = ".json" if extension == "csv" else ".csv"
-
     # CONVERT CSV TO JSON
     if extension == "csv":
         keys = data[0]
@@ -70,6 +68,9 @@ else:
             converted.append(row)
 
     # CREATE OUTPUT FILE
+    converted_file_basename = os.path.basename(filename).split(".")[0]
+    converted_file_extension = ".json" if extension == "csv" else ".csv"
+    
     if(os.path.isfile(converted_file_basename + converted_file_extension)):
         counter = 1
         while os.path.isfile(converted_file_basename + " (" + str(counter) + ")" + converted_file_extension):
