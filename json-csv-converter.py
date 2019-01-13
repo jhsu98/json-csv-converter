@@ -64,13 +64,13 @@ else:
                 if keys[j] in data[i]:
                     row.append(data[i][keys[j]])
                 else:
-                    row.append('')
+                    row.append(None)
             converted.append(row)
 
     # CREATE OUTPUT FILE
     converted_file_basename = os.path.basename(filename).split(".")[0]
     converted_file_extension = ".json" if extension == "csv" else ".csv"
-    
+
     if(os.path.isfile(converted_file_basename + converted_file_extension)):
         counter = 1
         while os.path.isfile(converted_file_basename + " (" + str(counter) + ")" + converted_file_extension):
